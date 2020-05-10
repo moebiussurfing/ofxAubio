@@ -19,7 +19,8 @@
 */
 
 #include "ofxAubioPitch.h"
-#include "ofLog.h"
+//#include "ofLog.h"
+#include "ofMain.h"
 
 ofxAubioPitch::ofxAubioPitch()
 {

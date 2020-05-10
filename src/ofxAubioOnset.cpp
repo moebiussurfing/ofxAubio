@@ -19,7 +19,8 @@
 */
 
 #include "ofxAubioOnset.h"
-#include "ofLog.h"
+//#include "ofLog.h"
+#include "ofMain.h"
 
 ofEvent<float> ofxAubioOnset::gotGlobalOnset = ofEvent<float>();
 

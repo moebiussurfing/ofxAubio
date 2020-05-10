@@ -29,6 +29,15 @@ class ofApp : public ofBaseApp{
         void onsetEvent(float & time);
         void beatEvent(float & time);
 
+
+		int sampleRate;
+		int bufferSize;
+		int numBuffers;
+		//ofSoundStream soundStream_Input;
+		//ofSoundStream soundStream_Output;
+        void setupSoundStream();
+		ofSoundStream soundStream;
+
     private:
         ofxAubioOnset onset;
         ofxAubioPitch pitch;
@@ -51,4 +60,6 @@ class ofApp : public ofBaseApp{
 
         ofxPanel bandsGui;
         ofPolyline bandPlot;
+
+
 };
