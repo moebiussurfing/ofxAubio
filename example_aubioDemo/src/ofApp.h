@@ -33,9 +33,7 @@ class ofApp : public ofBaseApp{
 		int sampleRate;
 		int bufferSize;
 		int numBuffers;
-		//ofSoundStream soundStream_Input;
-		//ofSoundStream soundStream_Output;
-        void setupSoundStream();
+
 		ofSoundStream soundStream;
 
     private:

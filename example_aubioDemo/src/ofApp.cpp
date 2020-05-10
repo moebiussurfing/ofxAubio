@@ -1,75 +1,6 @@
 #include "ofApp.h"
 #include "ofEventUtils.h"
 
-////--------------------------------------------------------------
-//void ofApp::setupSoundStream() {
-//
-//	sampleRate = 44100;
-//	bufferSize = 512;
-//	numBuffers = 4;
-//
-//	//input
-//
-//	soundStream_Input.printDeviceList();
-//
-//	cout << "INPUT devices" << endl;
-//
-//	//int myDevice = 6;//wasapi
-//	int myDevice = 4;//ds
-//	//int myDevice = 0;//asio
-//
-//	//std::vector<ofSoundDevice> devices = soundStream_Input.getDeviceList(ofSoundDevice::Api::MS_WASAPI);
-//	std::vector<ofSoundDevice> devices = soundStream_Input.getDeviceList(ofSoundDevice::Api::MS_DS);
-//	//std::vector<ofSoundDevice> devices = soundStream_Input.getDeviceList(ofSoundDevice::Api::MS_ASIO);
-//
-//	ofSoundStreamSettings settings_Input;
-//	settings_Input.setInDevice(devices[myDevice]);
-//	settings_Input.setInListener(ofGetAppPtr());
-//
-//	//settings_Input.setApi(ofSoundDevice::Api::MS_WASAPI);
-//	settings_Input.setApi(ofSoundDevice::Api::MS_DS);
-//	//settings_Input.setApi(ofSoundDevice::Api::MS_ASIO);
-//
-//	settings_Input.numInputChannels = 2;
-//	settings_Input.numOutputChannels = 0;
-//	settings_Input.sampleRate = sampleRate;
-//	settings_Input.bufferSize = bufferSize;
-//	settings_Input.numBuffers = numBuffers;
-//	soundStream_Input.setup(settings_Input);
-//
-//	//--
-//
-//	//Output
-//
-//	soundStream_Output.printDeviceList();
-//
-//	cout << "OUTPUT devices" << endl;
-//
-//	//int myDevice = 6;//wasapi
-//	int myOutDevice = 0;//ds
-//	//int myOutDevice = 0;//asio
-//
-//	//std::vector<ofSoundDevice> devicesOut = soundStream_Output.getDeviceList(ofSoundDevice::Api::MS_WASAPI);
-//	std::vector<ofSoundDevice> devicesOut = soundStream_Output.getDeviceList(ofSoundDevice::Api::MS_DS);
-//	//std::vector<ofSoundDevice> devicesOut = soundStream_Output.getDeviceList(ofSoundDevice::Api::MS_ASIO);
-//
-//	ofSoundStreamSettings settings_Output;
-//	settings_Output.setOutDevice(devicesOut[myOutDevice]);
-//	settings_Output.setOutListener(ofGetAppPtr());
-//	settings_Output.setOutListener(this);
-//
-//	//settings_Output.setApi(ofSoundDevice::Api::MS_WASAPI);
-//	settings_Output.setApi(ofSoundDevice::Api::MS_DS);
-//	//settings_Output.setApi(ofSoundDevice::Api::MS_ASIO);
-//
-//	settings_Output.numInputChannels = 0;
-//	settings_Output.numOutputChannels = 2;
-//	settings_Output.sampleRate = sampleRate;
-//	settings_Output.bufferSize = bufferSize;
-//	settings_Output.numBuffers = numBuffers;
-//	soundStream_Output.setup(settings_Output);
-//}
-
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -78,8 +9,8 @@ void ofApp::setup(){
 
     int nOutputs = 2;
     int nInputs = 2;
-    //int sampleRate = 44100;
-    //int bufferSize = 256;
+    int sampleRate = 44100;
+    int bufferSize = 256;
     //int nBuffers = 4;
 
     // setup onset object
@@ -103,44 +34,36 @@ void ofApp::setup(){
 
 	//---
 
-	//SOUND INPUTS
+	ofSoundStreamSettings settings;
 
-	//setupSoundStream();
+	// if you want to set the device id to be different than the default
+	 //auto devices = soundStream.getDeviceList();
+	 //settings.setInDevice = devices[4];
 
-	//
+	// you can also get devices for an specific api
+	// auto devices = soundStream.getDevicesByApi(ofSoundDevice::Api::PULSE);
+	// settings.device = devices[0];
 
-	//ofSoundStreamSettings settings;
+	std::vector<ofSoundDevice> devices = soundStream.getDeviceList(ofSoundDevice::Api::MS_DS);
+	
+	// or get the default device for an specific api:
+	settings.setApi(ofSoundDevice::Api::MS_DS);
+	settings.setInDevice(devices[8]);
+	settings.setInListener(ofGetAppPtr());
 
-	//// if you want to set the device id to be different than the default
-	// auto devices = soundStream.getDeviceList();
-	// //settings.setInDevice = devices[4];
-
-	//// you can also get devices for an specific api
-	//// auto devices = soundStream.getDevicesByApi(ofSoundDevice::Api::PULSE);
-	//// settings.device = devices[0];
-
-	//// or get the default device for an specific api:
-	//// settings.api = ofSoundDevice::Api::PULSE;
-
-	////// or by name
-	////auto devices = soundStream.getMatchingDevices("default");
-	////if (!devices.empty()) {
-	////	settings.setInDevice(devices[0]);
-	////}
+	//// or by name
+	//auto devices = soundStream.getMatchingDevices("default");
+	//if (!devices.empty()) {
+	//	settings.setInDevice(devices[0]);
+	//}
 
 	//settings.setInListener(this);
-	//settings.sampleRate = 44100;
-	//settings.numOutputChannels = 0;
-	//settings.numInputChannels = 2;
-	//settings.bufferSize = bufferSize;
-	//soundStream.setup(settings);
+	settings.sampleRate = 44100;
+	settings.numOutputChannels = 0;
+	settings.numInputChannels = 2;
+	settings.bufferSize = bufferSize;
 
-	//---
-
-    ofSoundStreamSetup(nOutputs, nInputs, this);
-    ////ofSoundStreamSetup(nOutputs, nInputs, sampleRate, bufferSize, nBuffers);
-    ofSoundStreamListDevices();
-
+	soundStream.setup(settings);
 
 	//--
 
